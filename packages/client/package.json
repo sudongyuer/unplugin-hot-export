@@ -17,10 +17,10 @@
     "@types/react-dom": "^18.0.0",
     "@vitejs/plugin-react": "^1.3.0",
     "typescript": "^4.6.3",
+    "unplugin-hot-export": "workspace:*",
     "vite": "^2.9.9",
     "vite-plugin-hot-export": "^0.5.1",
     "vite-plugin-inspect": "^0.6.0",
-    "unplugin-hot-export": "workspace:*",
     "vite-plugin-svgr": "^2.2.0"
   }
 }
