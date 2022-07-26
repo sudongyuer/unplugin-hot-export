@@ -1,4 +1,4 @@
-import { defineExportConfig } from 'vite-plugin-hot-export'
+import { defineExportConfig } from 'unplugin-hot-export'
 
 export default defineExportConfig({
   configs: [
