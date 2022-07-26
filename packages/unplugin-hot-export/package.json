@@ -1,7 +1,7 @@
 {
   "name": "unplugin-hot-export",
   "type": "module",
-  "version": "0.5.3",
+  "version": "0.0.0",
   "packageManager": "pnpm@7.1.5",
   "description": "",
   "author": "sudongyuer",
