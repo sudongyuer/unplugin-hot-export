@@ -6,11 +6,20 @@ import { createUnplugin } from 'unplugin'
 import { loadConfig } from 'unconfig'
 import chokidar from 'chokidar'
 import { main } from 'auto-export/utils'
-excuteAutoExport()
-LoadConfigAndExcute()
+let isRunning = false
 export const unplugin = createUnplugin(() => {
   return {
     name: 'unplugin-hot-export',
+    buildStart: () => {
+      console.warn(process.env.NODE_ENV)
+      if (process.env.NODE_ENV === 'development' || process.env.NODE_ENV === undefined) {
+        if (!isRunning) {
+          excuteAutoExport()
+          LoadConfigAndExcute()
+          isRunning = true
+        }
+      }
+    },
   }
 })
 
