@@ -6,42 +6,11 @@ import { createUnplugin } from 'unplugin'
 import { loadConfig } from 'unconfig'
 import chokidar from 'chokidar'
 import { main } from 'auto-export/utils'
+excuteAutoExport()
+LoadConfigAndExcute()
 export const unplugin = createUnplugin(() => {
   return {
     name: 'unplugin-hot-export',
-    // webpack's id filter is outside of loader logic,
-    // an additional hook is needed for better perf on webpack
-    buildStart(this) {
-      excuteAutoExport()
-      loadConfig<ExportConfig>({
-        sources: [
-          {
-            files: 'export.config',
-            extensions: ['ts', 'mts', 'cts', 'js', 'mjs', 'cjs', 'json', ''],
-          },
-        ],
-      }).then(({ config: configArray }) => {
-        const configs = configArray.configs
-        for (let i = 0; i < configs.length; i++) {
-          const config = configs[i]
-          const { targetDir } = config
-          let filesCount = getCurrentDirFilesCount(targetDir)
-          chokidar.watch(path.resolve(cwd(), config.targetDir), {
-            ignoreInitial: true,
-            atomic: true,
-            followSymlinks: true,
-          }).on('all', (event, pathDir) => {
-            if (pathDir !== path.resolve(cwd(), targetDir, 'index.ts')) {
-              const newFilesCount = getCurrentDirFilesCount(targetDir)
-              if (newFilesCount !== filesCount) {
-                excuteAutoExport()
-                filesCount = newFilesCount
-              }
-            }
-          })
-        }
-      })
-    },
   }
 })
 
@@ -85,6 +54,37 @@ function getCurrentDirFilesCount(targetDir: string) {
       filesLength += getCurrentDirFilesCount(filePath)
   }
   return filesLength
+}
+
+function LoadConfigAndExcute() {
+  loadConfig<ExportConfig>({
+    sources: [
+      {
+        files: 'export.config',
+        extensions: ['ts', 'mts', 'cts', 'js', 'mjs', 'cjs', 'json', ''],
+      },
+    ],
+  }).then(({ config: configArray }) => {
+    const configs = configArray.configs
+    for (let i = 0; i < configs.length; i++) {
+      const config = configs[i]
+      const { targetDir } = config
+      let filesCount = getCurrentDirFilesCount(targetDir)
+      chokidar.watch(path.resolve(cwd(), config.targetDir), {
+        ignoreInitial: true,
+        atomic: true,
+        followSymlinks: true,
+      }).on('all', (event, pathDir) => {
+        if (pathDir !== path.resolve(cwd(), targetDir, 'index.ts')) {
+          const newFilesCount = getCurrentDirFilesCount(targetDir)
+          if (newFilesCount !== filesCount) {
+            excuteAutoExport()
+            filesCount = newFilesCount
+          }
+        }
+      })
+    }
+  })
 }
 
 export { defineExportConfig }
