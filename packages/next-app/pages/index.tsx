@@ -1,7 +1,7 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
-import { PngLogo } from '../src/images'
+import { PngFavicon, PngWechatImg329 } from '../src/images'
 import styles from '../styles/Home.module.css'
 
 const Home: NextPage = () => {
@@ -15,7 +15,7 @@ const Home: NextPage = () => {
 
       <main className={styles.main}>
         <h1 className={styles.title}>
-          <Image src={PngLogo} alt="Vercel Logo" height={30} />
+          <Image src={PngFavicon} alt="Vercel Logo" />
           Welcome to <a href="https://nextjs.org">Next.js!</a>
         </h1>
 
