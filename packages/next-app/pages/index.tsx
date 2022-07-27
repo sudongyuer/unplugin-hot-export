@@ -1,7 +1,7 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
-import { PngBannerBg, PngIcon, PngLogo, PngReact, PngWebstorm } from '../src/images'
+import { PngLogo } from '../src/images'
 import styles from '../styles/Home.module.css'
 
 const Home: NextPage = () => {
