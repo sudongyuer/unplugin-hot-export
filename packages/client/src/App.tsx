@@ -1,4 +1,5 @@
 import './App.css'
+import { JpegDoodleKawai, PngScreenshot } from './images'
 import logo from './logo.svg'
 
 function App() {
@@ -9,7 +10,7 @@ function App() {
         <img style={{ width: '300px' }} src={'https://git.poker/sudongyuer/image-bed/blob/master/20220714/vite-plugin-auto-export-logo.1aoaypaggq5c.png?raw=true'} alt="logo" />
         <img
           style={{ width: '150px' }}
-          src={''}
+          src={PngScreenshot}
          />
         <p style={{
           display: 'flex',
