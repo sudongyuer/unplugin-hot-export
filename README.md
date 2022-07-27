@@ -41,6 +41,89 @@ When developing, we often need to download some `images` or `svg` from the inter
 pnpm add -D unplugin-hot-export
 ```
 
+<details>
+<summary>Vite</summary><br>
+
+```ts
+// vite.config.ts
+import { vitePlugin as HotExport } from 'unplugin-hot-export'
+
+export default defineConfig({
+  plugins: [HotExport()],
+})
+```
+
+<br></details>
+
+<details>
+<summary>Rollup</summary><br>
+
+```ts
+// rollup.config.js
+import { rollupPlugin as HotExport } from 'unplugin-hot-export'
+
+export default {
+  plugins: [HotExport()],
+}
+```
+
+<br></details>
+
+<details>
+<summary>esbuild</summary><br>
+
+```ts
+// esbuild.config.js
+import { build } from 'esbuild'
+const HotExport = require('unplugin-hot-export')
+build({
+  plugins: [HotExport.esbuildPlugin()],
+})
+```
+
+<br></details>
+
+<details>
+<summary>Webpack</summary><br>
+
+```ts
+// webpack.config.js
+const HotExport = require('unplugin-hot-export')
+module.exports = {
+  /* ... */
+  plugins: [HotExport.webpackPlugin()],
+}
+```
+
+<br></details>
+
+<details>
+<summary>NextJs</summary><br>
+
+```ts
+// next.config.js
+const HotExport = require('unplugin-hot-export')
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  reactStrictMode: true,
+  swcMinify: true,
+  webpack: (config, _) => {
+    config.plugins.push(HotExport.webpackPlugin())
+    return config
+  },
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
+}
+
+module.exports = nextConfig
+```
+
+<br></details>
+
+
+
+
 ### Config `export.config.ts`
 
 - targetDir (require) : the directory to export files
@@ -87,18 +170,6 @@ export default defineExportConfig({
 
 ```
 
-Add `unplugin-hot-export` plugin to vite.config.js / vite.config.ts and configure it:
-
-```js
-// vite.config.js / vite.config.ts
-import HotExport from 'unplugin-hot-export'
-
-export default {
-  plugins: [
-    HotExport()
-  ]
-}
-```
 Then start your project
 ```bash
 pnpm run dev
